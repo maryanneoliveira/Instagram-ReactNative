@@ -3,23 +3,34 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import Logo from '../componentes/Logo';
 import MeuBotao from '../componentes/MeuBotao';
 import { useState } from 'react';
+import { useNavigation} from '@react-navigation/native'
 export default function Login() {
+
+  const[email,setEmail]= useState('');
+  const[senha,setSenha]= useState('');
+
+  const navigation = useNavigation();
+ const [VerSenha, setVerSenha] = useState(true)
   return (
     
     <View style={styles.container}>
         <Logo></Logo>
       
-      <TextInput style={[styles.textInput,{marginTop:12}]} placeholder=' Phone number,username or email'></TextInput>
+      <TextInput style={[styles.textInput,{marginTop:12}]} placeholder=' Phone number,username or email'
+      onChangeText={(text) => setEmail(text)}
+      ></TextInput>
 
-      <TextInput secureTextEntry={true} style={[styles.textInput,{marginTop:12}]} placeholder=' Password'></TextInput>
+      <TextInput secureTextEntry={VerSenha} style={[styles.textInput,{marginTop:12}]} placeholder=' Password'
+      onChangeText={(text) => setSenha(text)}
+      ></TextInput>
 
-      <TouchableOpacity onPress={() => {alert(`OI`)}}> 
+      <TouchableOpacity onPress={() => setVerSenha(!VerSenha)}> 
       <Text style={styles.textoMostrarSenha}>Show</Text>
       </TouchableOpacity>
 
-      <MeuBotao></MeuBotao>
+      <MeuBotao email={email} senha={senha}/>
   
-      <TouchableOpacity onPress={() => {alert(`OI`)}}> 
+      <TouchableOpacity onPress={() => navigation.navigate('telaCadastro')}> 
       <Text style={styles.textoNaoTemConta}> Don't have an account? Sing Up </Text>
       </TouchableOpacity>
 
@@ -53,14 +64,14 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
     color:"#2584f4",
     marginTop:12,
-    marginLeft:250
+    marginLeft:220
   },
 
   textoNaoTemConta:{
     fontSize:11,
     fontWeight:'bold',
     color:"#2584f4",
-    marginTop:200,
+    marginTop:130,
    alignItems:'center'
   },
 

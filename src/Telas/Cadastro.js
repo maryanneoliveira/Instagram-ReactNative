@@ -1,23 +1,35 @@
 import { View, StyleSheet, TextInput, Text, TouchableOpacity} from "react-native";
 import Logo from "../componentes/Logo";
 import MeuBotao2 from "../componentes/MeuBotao2";
-
+import { useState, version } from 'react';
 export default function Cadastro(){
-    return(
- <View style={styles.container}>
-        <Logo></Logo>
 
-        <TextInput style={[styles.textInput,{marginTop:12}]} placeholder='your email'></TextInput>
+    const [email,setEmail]= useState('');
+    const [senha,setSenha]= useState('');
+    const [confimarSenha, setConfirmarSenha]= useState('')
+    const [VerSenha, setVerSenha] = useState(true)
 
-        <TextInput secureTextEntry={true} style={[styles.textInput,{marginTop:12}]} placeholder=' Password'></TextInput>
+    return (
+        <View style={styles.container}>
+            <Logo></Logo>
 
-        <TextInput secureTextEntry={true} style={[styles.textInput,{marginTop:12}]} placeholder='Confirm your password'></TextInput>
+            <TextInput style={[styles.textInput, { marginTop: 12 }]} placeholder='your email'
+                onChangeText={(text) => setEmail(text)}
+            ></TextInput>
 
-     <TouchableOpacity onPress={() => {alert(`OI`)}}> 
-      <Text style={styles.textoMostrarSenha}>Show</Text>
-      </TouchableOpacity>
+            <TextInput secureTextEntry={VerSenha} style={[styles.textInput, { marginTop: 12 }]} placeholder=' Password'
+                onChangeText={(text) => setSenha(text)}
+            ></TextInput>
 
-        <MeuBotao2> </MeuBotao2>
+            <TextInput secureTextEntry={VerSenha} style={[styles.textInput, { marginTop: 12 }]} placeholder='Confirm your password'
+                onChangeText={(text) => setConfirmarSenha(text)}
+            ></TextInput>
+
+            <TouchableOpacity onPress={() => setVerSenha(!VerSenha)}>
+                <Text style={styles.textoMostrarSenha}>Show</Text>
+            </TouchableOpacity>
+
+            <MeuBotao2 email={email} senha={senha} confimarSenha={confimarSenha} ></MeuBotao2>
 
 
         </View>
@@ -47,6 +59,6 @@ const styles= StyleSheet.create({
         fontWeight:"bold",
         color:"#2584f4",
         marginTop:12,
-        marginLeft:250
+        marginLeft:220
     }
 })
